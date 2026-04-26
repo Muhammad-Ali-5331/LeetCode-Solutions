@@ -1,21 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
-void dfs(int node,vector<bool>&visited,stack<int>& st,unordered_map<int,vector<int>>& adjList) {
-    visited[node] = true;
-    for (auto &n: adjList[node]) {
-        if (!visited[n]){dfs(n,visited,st,adjList);}
-    }
-    st.push(node);
-}
 class Solution {
 public:
-    
+    void dfs(int node,vector<bool>&visited,stack<int>& st,unordered_map<int,vector<int>>& adjList) {
+        visited[node] = true;
+        for (auto &n: adjList[node]) {
+            if (!visited[n]){dfs(n,visited,st,adjList);}
+        }
+        st.push(node);
+    }
+
     bool canFinish(int numCourses, vector<vector<int>>& connections) {
         unordered_map<int,vector<int>> adjList;
         for (auto node:connections) {
 
             // As node[1] is pre-req of node[0] so there is a directed edge from node[1] --> node[0]
-            
+
             adjList[node[1]].push_back(node[0]);
         }
         vector<int> res;
