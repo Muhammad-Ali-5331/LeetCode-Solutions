@@ -17,5 +17,5 @@ class Solution:
                 while slow != fast:
                     slow = slow.next
                     fast = fast.next
-                return slow # This is the entrance
+                return fast # This is the entrance
         return None
