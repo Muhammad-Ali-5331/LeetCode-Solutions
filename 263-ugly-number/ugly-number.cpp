@@ -1,9 +1,7 @@
 class Solution {
 public:
-    bool isUgly(int x) {
-        if (x<=0) return false;
-        long long n = x;
-        n = abs(n);
+    bool isUgly(int n) {
+        if (n<=0) return false;
         while (n>1){
             if (n%2 == 0){
                 while (n>1 and n%2 == 0) n/=2;
