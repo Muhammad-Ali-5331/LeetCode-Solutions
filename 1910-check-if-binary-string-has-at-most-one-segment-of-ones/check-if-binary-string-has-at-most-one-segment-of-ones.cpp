@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool checkOnesSegment(string s) {
+        int n = s.size();
+        int count = 0;
+        int i = 0;
+        while (i<n){
+            if (s[i] =='1'){
+                count++;
+                while (i<n and s[i] == '1') i++;
+            }
+            else{ i++; }
+        }
+        return count<=1;
+    }
+};
