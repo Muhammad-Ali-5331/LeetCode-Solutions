@@ -7,4 +7,4 @@ class Solution:
                 if res: res.pop()
             elif ch == "#": res += res
             else: res = res[::-1]
-        return "".join(res) if res else ""
+        return "".join(res)
