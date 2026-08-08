@@ -9,11 +9,9 @@ var chunk = function(arr, size) {
     let i = 0;
     while (i<n){
         let upL = Math.min(i+size,n);
-        let temp = [];
-        while (i<upL){
-            temp.push(arr[i++]);
-        }
+        let temp = arr.slice(i,upL);
         res.push(temp);
+        i+=size;
     }
     return res;
 };
