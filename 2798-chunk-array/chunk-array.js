@@ -11,7 +11,6 @@ var chunk = function(arr, size) {
         let upL = Math.min(i+size,n);
         let temp = [];
         while (i<upL){
-            if (i == n) break;
             temp.push(arr[i++]);
         }
         res.push(temp);
