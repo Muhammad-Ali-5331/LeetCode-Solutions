@@ -1,14 +1,9 @@
 class Solution:
     def longestSubsequence(self, nums: List[int]) -> int:
-        total_xor = 0
-        has_non_zero = False
-        
-        for num in nums:
-            total_xor ^= num
-            if num != 0:
-                has_non_zero = True
-                
-        if not has_non_zero:
-            return 0
-        
-        return len(nums) if total_xor != 0 else len(nums) - 1
+        l = len(nums)
+        al = list(set(nums))
+        x = 0
+        for val in nums: x^=val
+        if x!=0: return l
+        elif len(al) == 1 and al[0] == 0: return 0
+        else: return l-1
