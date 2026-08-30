@@ -8,7 +8,7 @@ class Solution:
             deletingmX = min(mxIndex,miIndex - mxIndex)
             return min(leftD, rightD + deletingmX)
         elif miIndex <= mxIndex: # Smaller Element is before larger element or Smaller = larger
-            leftD = mxIndex # not subtracting 1 because mxElem gets deleted in it
+            leftD = mxIndex # not subtracting 1 because miElem gets deleted in it
             rightD = n-mxIndex+1
             deletingmX = min(miIndex,mxIndex - miIndex)
             return min(leftD, rightD + deletingmX)
