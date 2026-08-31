@@ -10,7 +10,7 @@ class Solution:
         before = None
         curr = head
         after = curr.next
-        minPos,maxPos = 0,-2
+        minPos,maxPos = 0,-1
         prevPos,minD = -1,float("inf")
         cnt = 0
         i = 1
@@ -27,5 +27,5 @@ class Solution:
             before = curr
             curr = after
             i+=1
-        res = [-1 if minD == float("inf") else minD, max(-1,maxPos-minPos)]
+        res = [-1 if minD == float("inf") else minD, maxPos-minPos]
         return res if cnt >= 2 else [-1,-1]
