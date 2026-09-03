@@ -16,9 +16,8 @@ class Solution:
         # -- Even Parity -- #
         for i in range(n):
             if nums[i]%2 == 0: even+=1
-            else:
-                if minOdd == nums[i]: break
-                even+=1
+            elif minOdd == nums[i]: break
+            else: even+=1
         
         # -- Odd Parity -- #
         for i in range(n):
