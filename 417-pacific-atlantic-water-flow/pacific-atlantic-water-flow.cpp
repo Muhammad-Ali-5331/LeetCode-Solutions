@@ -1,59 +1,82 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<pair<int,int>> dirs = {
-    {1,0},
-    {-1,0},
-    {0,1},
-    {0,-1}
-};
+
+template <typename T>
+void printUnorderedSet(const unordered_set<T>& s) {
+    bool first = true;
+    for (const auto& elem : s) {
+        if (!first) cout << " ";
+        cout << elem;
+        first = false;
+    }
+    cout << '\n';
+}
+
+template <typename T>
+void printVector(const vector<T>& vec) {
+    for (size_t i = 0; i < vec.size(); ++i) {
+        cout << vec[i] << (i + 1 < vec.size() ? " " : "");
+    }
+    cout << '\n';
+}
 class Solution {
 public:
-    int ROWS = 0,COLS = 0;
-    bool isValid(int r, int c){return r>=0 and c>=0 and r<ROWS and c<COLS;}
+    vector<vector<int>> dirs = {{1,0},{-1,0},{0,1},{0,-1}};
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
-        ROWS = heights.size();
-        COLS = heights[0].size();
-        vector<vector<int>> res;
-
-        // Explore Pacific Ocean Points
-        map<pair<int,int>,int> MAP1;
-        queue<pair<int,int>> q;
-        for (int row = 1; row < ROWS ; row++) {q.push({row,0});MAP1[{row,0}] = 1;}
-        for (int col = 0; col < COLS; col++){q.push({0,col});MAP1[{0,col}] = 1;}
-        while (!q.empty()) {
-            auto curr = q.front();q.pop();
-            int currX = curr.first,currY = curr.second;
-            int currHeight = heights[currX][currY];
-            MAP1[{currX,currY}] = 1;
-            for (auto dir: dirs) {
-                int newX = curr.first+dir.first,newY = curr.second+dir.second;
-                if (!isValid(newX,newY)) continue;
-                if (MAP1.contains({newX,newY})) continue;
-                if (heights[newX][newY]>=currHeight){q.push({newX,newY});}
+        vector<vector<int>> result;
+        int n = heights.size();
+        int m = heights[0].size();
+        vector<vector<bool>> visitedPacific (n,vector<bool>(m,false));
+        vector<vector<bool>> visitedAtlantic (n,vector<bool>(m,false));
+        queue<tuple<int,int>> q;
+        for (int c = 0; c<m; c++){
+            visitedPacific[0][c] = true;
+            q.push({0,c});
+        }
+        for (int r = 0; r<n; r++){
+            visitedPacific[r][0] = true;
+            q.push({r,0});
+        }
+        while (!q.empty()){
+            tuple<int,int> top = q.front();q.pop();
+            int row = get<0>(top);
+            int col = get<1>(top);
+            for (int i = 0; i<4; i++){
+                int x = row + dirs[i][0];
+                int y = col + dirs[i][1];
+                if (x>=0 && x<n && y>=0 && y<m && !visitedPacific[x][y] && heights[x][y]>=heights[row][col]){
+                    visitedPacific[x][y] = true;
+                    q.push({x,y});
+                }
             }
-
         }
-        // Explore Atlantic Ocean points
-        map<pair<int,int>,int> MAP2;
-        for (int row = 0 ; row < ROWS-1 ; row++) {q.push({row,COLS-1});MAP2[{row,COLS-1}] = 1;}
-        for (int col = 0; col < COLS; col++){q.push({ROWS-1,col});MAP2[{ROWS-1,col}] = 1;}
-        while (!q.empty()) {
-            auto curr = q.front();q.pop();
-            int currX = curr.first,currY = curr.second;
-            int currHeight = heights[currX][currY];
-            MAP2[{currX,currY}] = 1;
-            for (auto dir: dirs) {
-                int newX = curr.first+dir.first,newY = curr.second+dir.second;
-                if (!isValid(newX,newY)) continue;
-                if (MAP2.contains({newX,newY})) continue;
-                if (heights[newX][newY]>=currHeight){q.push({newX,newY});}
+        for (int c = 0; c<m; c++){
+            visitedAtlantic[n-1][c] = true;
+            q.push({n-1,c});
+        }
+        for (int r = 0; r<n; r++){
+            visitedAtlantic[r][m-1] = true;
+            q.push({r,m-1});
+        }
+        while (!q.empty()){
+            tuple<int,int> top = q.front();q.pop();
+            int row = get<0>(top);
+            int col = get<1>(top);
+            for (int i = 0; i<4; i++){
+                int x = row + dirs[i][0];
+                int y = col + dirs[i][1];
+                if (x>=0 && x<n && y>=0 && y<m && !visitedAtlantic[x][y] && heights[x][y]>=heights[row][col]){
+                    visitedAtlantic[x][y] = true;
+                    q.push({x,y});
+                }
             }
-
         }
-        for (auto [key,val]:MAP1) {
-            if (MAP2.contains(key)){res.push_back({key.first,key.second});}
+        
+        for (int row = 0; row<n; row++){
+            for (int col = 0; col<m; col++){
+                if (visitedPacific[row][col] && visitedAtlantic[row][col]) result.push_back({row,col});
+            }
         }
-        return res;
-
+        return result;
     }
 };
