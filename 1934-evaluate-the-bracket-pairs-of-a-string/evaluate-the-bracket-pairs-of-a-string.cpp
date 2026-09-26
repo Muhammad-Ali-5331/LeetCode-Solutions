@@ -14,7 +14,7 @@ public:
                 i++;
                 string currS;
                 while (i<n && s[i] !=')'){currS+=s[i++];}
-                res += MAP.count(currS) == 0 ? string("?") : MAP[currS];
+                res += MAP.count(currS) == 0 ? "?" : MAP[currS];
                 i++;
             }
             else { res += s[i++]; }
