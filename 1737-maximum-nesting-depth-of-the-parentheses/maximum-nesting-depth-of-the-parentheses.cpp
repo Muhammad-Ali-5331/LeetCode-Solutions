@@ -8,10 +8,7 @@ public:
                 int top = st.empty() ? 0 : st.top();
                 st.push(top+1);
             }
-            else if (ch == ')'){
-                mx = max(st.top(),mx);
-                st.pop();
-            }
+            if (ch == ')'){mx = max(mx,st.top()); st.pop();}
         }
         return mx;
     }
