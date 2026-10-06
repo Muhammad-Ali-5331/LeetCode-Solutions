@@ -11,7 +11,7 @@ public:
                 else moves++;
             }
         }
-        while (!stk.empty()){stk.pop();moves++;}
+        moves+=stk.size();
         return moves;
     }
 };
