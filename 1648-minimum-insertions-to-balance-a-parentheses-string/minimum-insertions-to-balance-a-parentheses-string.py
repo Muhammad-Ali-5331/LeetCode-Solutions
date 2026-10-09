@@ -23,6 +23,8 @@ class Solution:
                     if stk and stk[-1] == "(":stk.pop()
                     else: ops+=1 # Else it requires placing one opening bracket (1 Operation)
                 i+=1
+
+        # only remains the opening brackets, so we require two steps for all of them
         while stk:
             stk.pop()
             ops+=2
