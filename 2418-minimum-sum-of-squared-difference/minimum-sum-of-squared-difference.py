@@ -27,8 +27,7 @@ class Solution:
             #It's the lower diff would be and add that amount of pairs we are decreasing
             lowerD = tp-1
             MAP[lowerD]+=to_use
-            if lowerD>=0:
-                heappush(HEAP,(-lowerD))
+            heappush(HEAP,(-lowerD))
 
             #Subtract that amount from total difference
             total-= to_use
