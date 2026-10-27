@@ -2,16 +2,14 @@
 using namespace std;
 class Solution {
 public:
+    void dfs(int x, int y, vector<vector<string>>& grid) {
+        grid[x][y] = ".";
+        if (x+1<grid.size()) dfs(x+1,y,grid); // Move Down
+        else if (y+1<grid[0].size()) dfs(x,y+1,grid); // Move Right
+    }
     vector<string> createGrid(int m, int n) {
         vector<vector<string>> grid(m,vector<string>(n,"#"));
-        deque<tuple<int,int>> q; // X, Y, direction
-        q.push_back({0,0});
-        while (!q.empty()) {
-            auto [x, y] = q.front(); q.pop_front();
-            grid[x][y] = ".";
-            if (x+1<m && grid[x+1][y]=="#") { q.push_back({x+1,y}); } // Move Down
-            else if (y+1<n && grid[x][y+1]=="#") { q.push_back({x,y+1}); } // Move Right
-        }
+        dfs(0,0,grid);
         vector<string> result;
         for (int i=0; i<m; i++) {
             string row = "";
