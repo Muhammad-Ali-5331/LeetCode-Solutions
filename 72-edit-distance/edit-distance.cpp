@@ -7,7 +7,11 @@ public:
         if (j < 0) return i + 1;
         if (dp[i][j] != -1) return dp[i][j];
         if (word1[i] == word2[j]) return dp[i][j] = recF(i - 1, j - 1, word1, word2, dp);
-        return dp[i][j] = 1 + min({recF(i - 1, j, word1, word2, dp), recF(i, j - 1, word1, word2, dp), recF(i - 1, j - 1, word1, word2, dp)});
+        int mi = INT_MAX;
+        mi = min(mi, recF(i - 1, j, word1, word2, dp)); // delete
+        mi = min(mi, recF(i, j - 1, word1, word2, dp)); // insert
+        mi = min(mi, recF(i - 1, j - 1, word1, word2, dp)); // replace
+        return dp[i][j] = 1 + mi;
     }
     int minDistance(string word1, string word2) {
         vector<vector<int>> dp(word1.size() + 1, vector<int>(word2.size() + 1, -1));
